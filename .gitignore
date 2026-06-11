@@ -38,6 +38,7 @@ models/*.pth
 results/**/*.mp4
 tmp.jpg
 .assets/*.gif
+yolov5/runs/
 __pycache__/
 **/__pycache__/
 *.pyc
