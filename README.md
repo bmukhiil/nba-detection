@@ -1,38 +1,37 @@
 # NBA Detection
 
-## Overview
+## What This Is
 
-This repo is a computer-vision project focused on projecting basketball video into a bird's-eye court view and tracking player movement over time. The pipeline combines player detection, court registration, homography, and trajectory rendering to create a cleaner tactical view from broadcast-style footage.
+NBA Detection is a computer-vision pipeline for turning basketball footage into a top-down tactical view. The repo combines player detection, court registration, homography, and trajectory rendering to project broadcast footage onto a bird's-eye court representation.
 
-## Stack
+## What Works
 
-- Python
-- YOLOv5
-- OpenCV
-- ResNet-based court mapping
-- NumPy / SciPy
+- Load basketball footage and court assets
+- Detect players from video frames
+- Estimate court geometry and camera alignment
+- Warp detections into a top-down board view
+- Render original, homography, and board-style outputs
+- Generate training-analysis plots from YOLO training results
 
-## What I Built
+## How It's Built
 
-- A workflow for detecting players from basketball footage
-- Court registration and homography mapping into a top-down tactical board
-- Trajectory visualization across frames
-- Supporting utilities for model analysis and experiment iteration
+- Main pipeline entry in [bird_eye_video.py](./bird_eye_video.py)
+- Court-model code in [model_resnet.py](./model_resnet.py) and [modeling](./modeling)
+- Data/transforms utilities under [data](./data)
+- Vendored YOLOv5 source under [yolov5](./yolov5)
+- Training-metric plotting in [yolo_result_analysis.py](./yolo_result_analysis.py)
 
-## Why I Built It
+## Technical Notes
 
-Basketball footage is hard to analyze from a coaching or systems perspective when the camera angle is tilted and noisy. This project explores how to turn raw video into a more tactical representation that makes spacing, movement, and player tracking easier to study.
+- The public repo is intentionally curated around source code and lightweight assets. Large training sets, checkpoints, local videos, and generated outputs were removed so the repo stays reviewable.
+- `yolov5` is vendored because the pipeline imports it directly rather than treating detection as an external service.
+- The codebase now avoids machine-specific absolute import paths so the public snapshot is portable.
 
-## Outcome
+## Proof of Work
 
-This is a strong applied computer-vision portfolio project because it combines detection, calibration, homography, and visualization in one pipeline. The public repo is intentionally trimmed to source code and supporting assets rather than large datasets, checkpoints, and generated videos.
-
-## Notes On The Public Version
-
-- Training datasets are not included
-- Model checkpoints are not included
-- Generated videos and large local experiment artifacts are not included
-- The vendored `yolov5` source is kept because the pipeline imports it directly
+- Training curves: ![Loss](./.assets/loss.png)
+- Precision/recall curve: ![PR Curve](./.assets/Precision_Recall_Curve.png)
+- Main pipeline code in [bird_eye_video.py](./bird_eye_video.py)
 
 ## Run Locally
 
